@@ -35,7 +35,10 @@ line.append("geocoding_road")
 # gen_rate = str(sys.argv[3])
 
 run_at = str(sys.argv[1])
-mqtt_address = "127.0.0.1"
+#run_at = "10:10"
+
+#mqtt_address = "127.0.0.1"
+mqtt_address = "172.16.177.6"
 t1 = "T-1"
 t2 = "T-2"
 t3 = "T-3"
@@ -55,7 +58,17 @@ def job():
 
     end = time.time() + iruntime
     while time.time() < end:
-        message = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
+        message1 = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
+                  line[1] + ":" + line[2] \
+                  + ":" + line[3] + ":" + line[4] + ":" + line[5] + ":" + line[2] + ":" + line[8] + ":" + line[8] + ":" + \
+                  line[10] + ":" + line[11] \
+                  + ":" + line[13] + ":" + line[14] + ":" + line[15] + ":" + line[16]
+        message2 = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
+                  line[1] + ":" + line[2] \
+                  + ":" + line[3] + ":" + line[4] + ":" + line[5] + ":" + line[2] + ":" + line[8] + ":" + line[8] + ":" + \
+                  line[10] + ":" + line[11] \
+                  + ":" + line[13] + ":" + line[14] + ":" + line[15] + ":" + line[16]
+        message3 = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
                   line[1] + ":" + line[2] \
                   + ":" + line[3] + ":" + line[4] + ":" + line[5] + ":" + line[2] + ":" + line[8] + ":" + line[8] + ":" + \
                   line[10] + ":" + line[11] \
@@ -64,12 +77,12 @@ def job():
         #message2 = "time:" + str(time.time()) + ":" + t2
         #message3 = "time:" + str(time.time()) + ":" + t3
         time.sleep(gen_irate/1000) #ms
-        #print(message1)
-        #print(message2)
-        #print(message3)
-        mqttph1.publish(t1, message)
-        mqttph2.publish(t2, message)
-        mqttph3.publish(t3, message)
+        # print(message1)
+        # print(message2)
+        # print(message3)
+        mqttph1.publish(t1, message1)
+        mqttph2.publish(t2, message2)
+        mqttph3.publish(t3, message3)
 
     mqttph1.disconnect()
     mqttph2.disconnect()

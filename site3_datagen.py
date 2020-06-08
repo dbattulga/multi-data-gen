@@ -35,7 +35,11 @@ line.append("geocoding_road")
 # gen_rate = str(sys.argv[3])
 
 run_at = str(sys.argv[1])
-mqtt_address = "127.0.0.1"
+#run_at = "10:10"
+
+#mqtt_address = "127.0.0.1"
+mqtt_address = "172.16.177.6"
+
 t7 = "T-7"
 t8 = "T-8"
 t9 = "T-9"
@@ -44,41 +48,56 @@ gen_rate = "10"
 runtime = "600"
 
 def job():
-    mqttph1 = MqttPublishHandler(mqtt_address, t7, 'mqtt-pub', 'mqtt-pub') #host, client id, username & password
-    mqttph1.connect()
-    mqttph2 = MqttPublishHandler(mqtt_address, t8, 'mqtt-pub', 'mqtt-pub') #host, client id, username & password
-    mqttph2.connect()
-    mqttph3 = MqttPublishHandler(mqtt_address, t9, 'mqtt-pub', 'mqtt-pub') #host, client id, username & password
-    mqttph3.connect()
-    mqttph4 = MqttPublishHandler(mqtt_address, t10, 'mqtt-pub', 'mqtt-pub')  # host, client id, username & password
-    mqttph4.connect()
+    mqttph7 = MqttPublishHandler(mqtt_address, t7, 'mqtt-pub', 'mqtt-pub') #host, client id, username & password
+    mqttph7.connect()
+    mqttph8 = MqttPublishHandler(mqtt_address, t8, 'mqtt-pub', 'mqtt-pub') #host, client id, username & password
+    mqttph8.connect()
+    mqttph9 = MqttPublishHandler(mqtt_address, t9, 'mqtt-pub', 'mqtt-pub') #host, client id, username & password
+    mqttph9.connect()
+    mqttph10 = MqttPublishHandler(mqtt_address, t10, 'mqtt-pub', 'mqtt-pub')  # host, client id, username & password
+    mqttph10.connect()
 
     gen_irate = int(gen_rate)
     iruntime = int(runtime)
 
     end = time.time() + iruntime
     while time.time() < end:
-        message = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
+        message1 = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
                   line[1] + ":" + line[2] \
                   + ":" + line[3] + ":" + line[4] + ":" + line[5] + ":" + line[2] + ":" + line[8] + ":" + line[8] + ":" + \
                   line[10] + ":" + line[11] \
                   + ":" + line[13] + ":" + line[14] + ":" + line[15] + ":" + line[16]
+        message2 = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
+                  line[1] + ":" + line[2] \
+                  + ":" + line[3] + ":" + line[4] + ":" + line[5] + ":" + line[2] + ":" + line[8] + ":" + line[8] + ":" + \
+                  line[10] + ":" + line[11] \
+                  + ":" + line[13] + ":" + line[14] + ":" + line[15] + ":" + line[16]
+        message3 = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
+                  line[1] + ":" + line[2] \
+                  + ":" + line[3] + ":" + line[4] + ":" + line[5] + ":" + line[2] + ":" + line[8] + ":" + line[8] + ":" + \
+                  line[10] + ":" + line[11] \
+                  + ":" + line[13] + ":" + line[14] + ":" + line[15] + ":" + line[16]
+        message4 = "sda" + ":" + line[12] + ":" + str(time.time()) + ":" + line[6] + ":" + line[7] + ":" + line[0] + ":" + \
+                   line[1] + ":" + line[2] \
+                   + ":" + line[3] + ":" + line[4] + ":" + line[5] + ":" + line[2] + ":" + line[8] + ":" + line[8] + ":" + \
+                   line[10] + ":" + line[11] \
+                   + ":" + line[13] + ":" + line[14] + ":" + line[15] + ":" + line[16]
         #message1 = "time:"+ str(time.time()) + ":"+ t1
         #message2 = "time:" + str(time.time()) + ":" + t2
         #message3 = "time:" + str(time.time()) + ":" + t3
         time.sleep(gen_irate/1000) #ms
-        #print(message1)
-        #print(message2)
-        #print(message3)
-        mqttph1.publish(t7, message)
-        mqttph2.publish(t8, message)
-        mqttph3.publish(t9, message)
-        mqttph3.publish(t10, message)
+        # print(message1)
+        # print(message2)
+        # print(message3)
+        mqttph7.publish(t7, message1)
+        mqttph8.publish(t8, message2)
+        mqttph9.publish(t9, message3)
+        mqttph10.publish(t10, message4)
 
-    mqttph1.disconnect()
-    mqttph2.disconnect()
-    mqttph3.disconnect()
-    mqttph4.disconnect()
+    mqttph7.disconnect()
+    mqttph8.disconnect()
+    mqttph9.disconnect()
+    mqttph10.disconnect()
     return schedule.CancelJob
 
 schedule.every().day.at(run_at).do(job)
