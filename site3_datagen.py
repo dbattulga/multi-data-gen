@@ -45,7 +45,7 @@ t8 = "T-8"
 t9 = "T-9"
 t10 = "T-10"
 gen_rate = "10"
-runtime = "600"
+runtime = "300"
 
 def job():
     mqttph7 = MqttPublishHandler(mqtt_address, t7, 'mqtt-pub', 'mqtt-pub') #host, client id, username & password
